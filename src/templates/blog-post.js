@@ -4,11 +4,13 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import ShareButtons from "../components/share-buttons"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
+  const url = typeof window !== 'undefined' ? window.location.href : '';
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -30,6 +32,9 @@ const BlogPostTemplate = ({ data, location }) => {
           itemProp="articleBody"
         />
         <hr />
+
+        <ShareButtons url={url} title={siteTitle} description={post.frontmatter.description || post.excerpt} />
+
         <footer>
           <Bio />
         </footer>
