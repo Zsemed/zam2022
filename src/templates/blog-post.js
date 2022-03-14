@@ -5,12 +5,15 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import ShareButtons from "../components/share-buttons"
+import TagButtons from "../components/tag-buttons"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
   const url = typeof window !== 'undefined' ? window.location.href : '';
+  const tagek = data.markdownRemark.frontmatter.tags
+
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -27,14 +30,18 @@ const BlogPostTemplate = ({ data, location }) => {
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
+              
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
         <hr />
-
-        <ShareButtons url={url} title={siteTitle} description={post.frontmatter.description || post.excerpt} />
-
+        <p>
+          <TagButtons tagek={tagek} />  
+        </p>
+        <p>
+          <ShareButtons url={url} title={siteTitle} description={post.frontmatter.description || post.excerpt} />
+        </p>
         <footer>
           <Bio />
         </footer>
@@ -88,6 +95,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        tags
         date(formatString: "MMMM DD, YYYY")
         description
       }
