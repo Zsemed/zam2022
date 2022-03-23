@@ -27,12 +27,15 @@ const BlogIndex = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
       <Bio />
-      <ol style={{ listStyle: `none` }}>
+{/*       <ol style={{ listStyle: `none` }}> */}
+        
+        <div style={{backgroundColor: "lightgray", width: "100%", display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridColumnGap: "10px"}}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
-            <li key={post.fields.slug}>
+           <div key={post.fields.slug}>   
+
               <article
                 className="post-list-item"
                 itemScope
@@ -55,10 +58,49 @@ const BlogIndex = ({ data, location }) => {
                   />
                 </section>
               </article>
-            </li>
+            </div>
           )
         })}
-      </ol>
+{/*      </ol>   */}
+    </div>
+    
+    <div style={{backgroundColor: "lightyellow", width: "100%", display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gridColumnGap: "10px"}}>
+        {posts.map(post => {
+          const title = post.frontmatter.title || post.fields.slug
+
+          return (
+           <div key={post.fields.slug}>   
+
+              <article
+                className="post-list-item"
+                itemScope
+                itemType="http://schema.org/Article"
+              >
+                <header>
+                  <h2>
+                    <Link to={post.fields.slug} itemProp="url">
+                      <span itemProp="headline">{title}</span>
+                    </Link>
+                  </h2>
+                  <small>{post.frontmatter.date}</small>
+                </header>
+                <section>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: post.frontmatter.description || post.excerpt,
+                    }}
+                    itemProp="description"
+                  />
+                </section>
+              </article>
+            </div>
+          )
+        })}
+{/*      </ol>   */}
+    </div>
+    
+    
+    
     </Layout>
   )
 }
