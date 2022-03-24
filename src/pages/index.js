@@ -29,12 +29,12 @@ const BlogIndex = ({ data, location }) => {
       <Bio />
 {/*       <ol style={{ listStyle: `none` }}> */}
         
-        <div style={{backgroundColor: "lightgray", width: "100%", display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridColumnGap: "10px"}}>
+        <div style={{backgroundColor: "lightgray", width: "100%", display: "flex", flexFlow: "column wrap", height: "1500px"}}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
-           <div key={post.fields.slug}>   
+           <div key={post.fields.slug} style={{width: "29%"}}>   
 
               <article
                 className="post-list-item"
